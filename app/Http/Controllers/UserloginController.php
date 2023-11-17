@@ -72,6 +72,20 @@ class UserloginController extends Controller
         ] );
     }
 
+    public function pengembalian(){
+        $mobil = Mobil::all();
+        $transaksi = Transaksi::all();
+        return view( 'userlogin.pengembalian', [
+            'title' => 'Halaman Pengembalian  Mobil',
+            'mobil' =>$mobil,
+            'transaksi' =>$transaksi
+        ] );
+    }
+
+    public function checkx(){
+        // waktunya terbatas
+    }
+
     private function calculateJumlahHari( $tglAwal, $tglAkhir )
  {
         $tanggalAwal = new \DateTime( $tglAwal );
