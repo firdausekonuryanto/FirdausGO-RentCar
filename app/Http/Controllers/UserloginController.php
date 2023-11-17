@@ -47,9 +47,18 @@ class UserloginController extends Controller
         $tglAkhir = $request->input( 'tgl_akhir' );
         $mobil = $request->input( 'mobil' );
 
-        $data = Mobil::whereNull( 'tgl_awal' )
-        ->whereNull( 'tgl_akhir' )
-        ->get();
+        // $data = Mobil::whereNull( 'tgl_awal' )
+        // ->whereNull( 'tgl_akhir' )
+        // ->get();
+
+        $data = Mobil::where(function ($query) use ($tglAwal, $tglAkhir) {
+            $query->whereNull('tgl_awal')
+                ->orWhereNull('tgl_akhir')
+                ->orWhere(function ($innerQuery) use ($tglAwal, $tglAkhir) {
+                    $innerQuery->where('tgl_awal', '>', $tglAkhir)
+                        ->orWhere('tgl_akhir', '<', $tglAwal);
+                });
+        })->get();
 
         $mobil = Mobil::all();
         return view( 'userlogin.transaksi', [
