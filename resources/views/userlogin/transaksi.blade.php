@@ -57,7 +57,7 @@
                     <input class="form-control" type="date" name="tgl_akhir" id="">
                 </td>
                 <td>
-                    <input type="submit" class="btn btn-success" value="Periksa Ketersediaan">
+                    <input type="submit" class="btn btn-success" value="Periksa Ketersediaan Mobil">
                 </td>
             </tr>
         </table>
