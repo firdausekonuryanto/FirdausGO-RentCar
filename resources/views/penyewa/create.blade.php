@@ -1,7 +1,7 @@
 @extends('layouts.main')
 @section('container')
 
-<h1 class="mb-4">Form Registrasi Penonton</h1>
+<h1 class="mb-4">Form Registrasi Penyewa</h1>
 <form method="post" id="kirim" action="{{ url('/penyewa') }}">
     @csrf
     <div class="wizard">

@@ -40,4 +40,9 @@ class User extends Authenticatable
     protected $casts = [
         'password' => 'hashed',
     ];
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class, 'id_penyewa');
+    }
 }

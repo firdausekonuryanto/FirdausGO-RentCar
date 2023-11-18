@@ -21,8 +21,8 @@ class MobilFactory extends Factory
             'merek' => $this->faker->userName(),
             'model' => $this->faker->userName(),
             'no_plat' => $this->faker->phoneNumber(),
-            'tarif' => $this->faker->randomFloat(2, 1, 100),
-            'sts_sewa' => $this->faker->boolean(),
+            'tarif' => $this->faker->randomFloat(6, 1, 100000),
+            'sts_sewa' => 0,
             'tgl_awal' => null,
             'tgl_akhir' => null,
         ];

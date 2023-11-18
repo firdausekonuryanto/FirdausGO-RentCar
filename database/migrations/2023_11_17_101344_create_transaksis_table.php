@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('jml_hari')->nullable();  
             $table->integer('total_sewa')->nullable();  
             $table->timestamps();
+
         });
     }
 

@@ -20,9 +20,10 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('transaksi', [UserloginController::class, 'transaksi']);
     Route::post('transaksi', [UserloginController::class, 'transaksi_sewa']);
     Route::post('transaksi_save', [UserloginController::class, 'transaksi_save']);
-    Route::get('semuapenonton', [UserloginController::class, 'semuapenonton']);
-    Route::get('validasitiket', [UserloginController::class, 'validasitiket']);
-    Route::post('check_in', [UserloginController::class, 'check_in']);
+    Route::post('checkx', [UserloginController::class, 'checkx']);
+    Route::get('pengembalian', [UserloginController::class, 'pengembalian']);
+    Route::post('pengembalian', [UserloginController::class, 'pengembalian']);
+    Route::post('pengembalian_update', [UserloginController::class, 'pengembalian_update']);
 });
 
 Route::resource('penyewa', PenyewaController::class)->only('create', 'store');

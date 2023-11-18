@@ -9,4 +9,9 @@ class Mobil extends Model
 {
     protected $guarded = ['id'];
     use HasFactory;
+
+    public function transaksis()
+    {
+        return $this->hasMany(Transaksi::class, 'id_mobil');
+    }
 }

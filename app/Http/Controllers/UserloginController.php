@@ -47,11 +47,7 @@ class UserloginController extends Controller
         $tglAkhir = $request->input( 'tgl_akhir' );
         $mobil = $request->input( 'mobil' );
 
-        // $data = Mobil::whereNull( 'tgl_awal' )
-        // ->whereNull( 'tgl_akhir' )
-        // ->get();
-
-        $data = Mobil::where(function ($query) use ($tglAwal, $tglAkhir) {
+           $data = Mobil::where(function ($query) use ($tglAwal, $tglAkhir) {
             $query->whereNull('tgl_awal')
                 ->orWhereNull('tgl_akhir')
                 ->orWhere(function ($innerQuery) use ($tglAwal, $tglAkhir) {
@@ -71,21 +67,45 @@ class UserloginController extends Controller
 
         ] );
     }
-
-    public function pengembalian(){
-        $mobil = Mobil::all();
-        $transaksi = Transaksi::all();
-        return view( 'userlogin.pengembalian', [
+    public function pengembalian(Request $request){
+        $mobilx = Mobil::all();
+        $no_plat = $request->input('no_plat');
+    
+        if (isset($no_plat)) {
+            $mobil = Mobil::all();
+            $transaksi = Transaksi::with('mobil','penyewa')
+                ->whereHas('mobil', function ($query) use ($no_plat) {
+                    $query->where('no_plat', $no_plat);
+                })
+                ->get();
+        } else {
+            $mobil = Mobil::all();
+            $transaksi = Transaksi::with('mobil', 'penyewa')->get();
+        }
+    
+        return view('userlogin.pengembalian', [
             'title' => 'Halaman Pengembalian  Mobil',
-            'mobil' =>$mobil,
-            'transaksi' =>$transaksi
-        ] );
+            'mobil' => $mobil,
+            'mobilx' => $mobilx,
+            'transaksi' => $transaksi
+        ]);
     }
 
-    public function checkx(){
-        // waktunya terbatas
-    }
+    public function pengembalian_update(Request $request ) {
+        $mobilId = $request->input( 'id_mobil' );
+        echo $mobilId;
+        $mobil = Mobil::find( $mobilId );
+        if ( $mobil ) {
+            $mobil->update([
+                'sts_sewa' => 0,
+                'tgl_awal' => null,
+                'tgl_akhir' => null,
+            ]);
+        }
+        return redirect( '/pengembalian' )->with( 'success', 'Transaksi berhasil disimpan!' );
 
+    }
+    
     private function calculateJumlahHari( $tglAwal, $tglAkhir )
  {
         $tanggalAwal = new \DateTime( $tglAwal );
